@@ -10,13 +10,15 @@ Plug 'autozimu/LanguageClient-neovim', {
 " Multi-entry selection UI for things like find all references
 Plug 'junegunn/fzf'
 
+Plug 'cespare/vim-toml'
+
 call plug#end()
 
 " Enable built in debugging
 packadd termdebug
 
-" Use clangd as language server for C++
-let g:LanguageClient_serverCommands = { 'cpp': ['clangd'], }
+" Set language servers
+let g:LanguageClient_serverCommands = { 'cpp': ['clangd'], 'rust': ['rls'] } " , 'javascript': ['javascript-typescript-langserver'] }
 
 nnoremap <F4> :call LanguageClient_contextMenu()<CR>
 
@@ -28,6 +30,8 @@ nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 
 " Rename symbol (Like :%s but respects scope)
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR> 
+
+nmap <C-g> :call LanguageClient#textDocument_references()<CR>
 
 " Map control-f to auto complete because constrol-x, control-o is an obnoxious
 " combination
@@ -57,6 +61,7 @@ set tabstop=4
 set shiftwidth=4
 set smartindent
 set autoindent
+set expandtab
 
 " Enable mouse
 set mouse=a
